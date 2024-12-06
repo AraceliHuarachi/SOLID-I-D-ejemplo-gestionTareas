@@ -21,12 +21,13 @@
             <textarea name="description" id="description" required></textarea>
         </div>
         <div>
+            <label for="deadline">Deadline:</label>
+            <input type="date" name="deadline" id="deadline" required>
+        </div>
+        <div>
             <label for="priority">Priority:</label>
-            <select name="priority" id="priority" required>
-                <option value="low">Low</option>
-                <option value="medium">Medium</option>
-                <option value="high">High</option>
-            </select>
+            <input type="text" name="priority" id="priority"
+                value="{{ old('priority', session('assignedPriority', 'Assigned Automatically')) }}" disabled>
         </div>
         <div>
             <label for="status">Status:</label>
