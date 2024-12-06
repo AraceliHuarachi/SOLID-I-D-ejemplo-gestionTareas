@@ -14,4 +14,22 @@ class TaskPriorityService implements TaskPriorityInterface
         $task->save();
         return $task;
     }
+
+    public function autoAssignPriority(Task $task): Task
+    {
+        $currentDate = now();
+        $deadline = $task->deadline;
+
+        if ($deadline && $deadline->diffInDays($currentDate) <= 3) {
+            $this->setPriority($task, 'high');
+        }
+        if ($deadline && $deadline->diffInDays($currentDate) <= 7) {
+            $this->setPriority($task, 'medium');
+        }
+        if ($deadline && $deadline->diffInDays($currentDate) > 7) {
+            $this->setPriority($task, 'low');
+        }
+
+        return $task;
+    }
 }
