@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TaskRequest;
 use App\Interfaces\TaskManagementInterface;
 use App\Interfaces\TaskPriorityInterface;
 use App\Models\Task;
@@ -30,14 +31,10 @@ class TaskController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(TaskRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'required|string',
-            'priority' => 'required|string|in:low,medium,high',
-            'status' => 'required|string|in:pending,in_progress,completed',
-        ]);
+        $validated = $request->validated();
+
         $task = $this->taskManager->createTask($validated);
 
         $this->taskPriority->setPriority($task, $validated['priority']);
@@ -55,17 +52,12 @@ class TaskController extends Controller
         return view('tasks.edit', compact('task'));
     }
 
-    public function update(Request $request, Task $task)
+    public function update(TaskRequest $request, Task $task)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'required|string',
-            'priority' => 'required|string|in:low,medium,high',
-            'status' => 'required|string|in:pending,in_progress,completed',
-        ]);
+        $validated = $request->validated();
 
-        // Aquí puedes usar el método de tu TaskManagementInterface para actualizar la tarea
         $task->update($validated);
+
         $this->taskPriority->setPriority($task, $validated['priority']);
 
         return redirect()->route('tasks.index')->with('success', 'Task updated successfully.');
