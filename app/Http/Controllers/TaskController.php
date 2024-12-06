@@ -39,7 +39,11 @@ class TaskController extends Controller
 
         $this->taskPriority->autoAssignPriority($task);
 
-        return redirect()->route('tasks.index')->with('success', 'task created successfully.');
+        // Obtener la prioridad asignada
+        $assignedPriority = $task->priority;
+
+        return redirect()->route('tasks.index')->with('success', 'Task created successfully.')
+            ->with('assignedPriority', $assignedPriority);
     }
 
     public function show(Task $task)
