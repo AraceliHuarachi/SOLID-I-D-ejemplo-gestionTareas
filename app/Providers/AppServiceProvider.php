@@ -15,6 +15,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        //vincular las interfaces con sus implementaciones para que cuando se necesite una instancia 
+        //de la interface, se utilice el servicio que la implementa.
         $this->app->bind(TaskManagementInterface::class, TaskManagerService::class);
         $this->app->bind(TaskPriorityInterface::class, TaskPriorityService::class);
     }
