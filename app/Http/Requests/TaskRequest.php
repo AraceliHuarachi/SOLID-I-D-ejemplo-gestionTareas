@@ -24,8 +24,10 @@ class TaskRequest extends FormRequest
         return [
             'name' => 'required|string|max:100',
             'description' => 'required|string',
+            'deadline' => 'required|date|after_or_equal:today',
             'priority' => 'required|string|in:low,medium,high',
             'status' => 'required|string|in:pending,in_progress,completed',
+
         ];
     }
 }
