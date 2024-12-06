@@ -10,35 +10,23 @@
 <body>
     <h1>Task List</h1>
 
-    {{-- Formulario para crear tareas --}}
-    <form action="{{ route('tasks.create') }}" method="POST">
-        @csrf
-        <div>
-            <label for="name">Name:</label>
-            <input type="text" name="name" id="name" required>
-        </div>
-        <div>
-            <label for="description">Description:</label>
-            <textarea name="description" id="description" required></textarea>
-        </div>
-        <div>
-            <label for="priority">Priority:</label>
-            <select name="priority" id="priority" required>
-                <option value="low">Low</option>
-                <option value="medium">Medium</option>
-                <option value="high">High</option>
-            </select>
-        </div>
-        <button type="submit">Create Task</button>
-    </form>
+    {{-- Botón para ir al formulario de crear tareas --}}
+    <a href="{{ route('tasks.create') }}">Create New Task</a>
 
     {{-- Lista de tareas --}}
     <ul>
-        @foreach ($tasks as $task)
+        @forelse ($tasks as $task)
             <li>
-                {{ $task->name }} - {{ $task->priority }}
+                <strong>
+                    <a href="{{ route('tasks.show', $task->id) }}">{{ $task->name }}</a>
+                </strong>
+                - Priority: {{ ucfirst($task->priority) }} - Status: {{ ucfirst($task->status) }}
+                {{-- Enlace para actualizar la tarea --}}
+                <a href="{{ route('tasks.edit', $task->id) }}">Edit</a>
             </li>
-        @endforeach
+        @empty
+            <p>No tasks available.</p>
+        @endforelse
     </ul>
 </body>
 
