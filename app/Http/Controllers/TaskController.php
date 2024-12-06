@@ -37,7 +37,7 @@ class TaskController extends Controller
 
         $task = $this->taskManager->createTask($validated);
 
-        $this->taskPriority->setPriority($task, $validated['priority']);
+        $this->taskPriority->autoAssignPriority($task);
 
         return redirect()->route('tasks.index')->with('success', 'task created successfully.');
     }
@@ -58,7 +58,7 @@ class TaskController extends Controller
 
         $task->update($validated);
 
-        $this->taskPriority->setPriority($task, $validated['priority']);
+        $this->taskPriority->autoAssignPriority($task);
 
         return redirect()->route('tasks.index')->with('success', 'Task updated successfully.');
     }
