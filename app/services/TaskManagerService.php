@@ -5,6 +5,7 @@ namespace App\Services;
 
 use App\Interfaces\TaskManagementInterface;
 use App\Models\Task;
+use Illuminate\Database\Eloquent\Collection;
 
 class TaskManagerService implements TaskManagementInterface
 {
@@ -24,5 +25,11 @@ class TaskManagerService implements TaskManagementInterface
     {
         $task = Task::findOrFail($id);
         return $task->delete();
+    }
+
+    //implementacion del metodo de consulta de la interface.
+    public function getAllTasks(): Collection
+    {
+        return Task::orderBy('created_at', 'desc')->get();
     }
 }
