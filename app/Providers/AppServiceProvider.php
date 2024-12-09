@@ -16,11 +16,16 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //vincular las interfaces con sus implementaciones para que cuando se necesite una instancia 
-        //de la interface, se utilice el servicio que la implementa.
+        // Vincular la interfaz de TaskManagementInterface con TaskManagerService (el servicio que la implementa).
         $this->app->bind(TaskManagementInterface::class, TaskManagerService::class);
-        // $this->app->bind(TaskPriorityInterface::class, TaskPriorityService::class);
-        $this->app->bind(TaskPriorityInterface::class, AriPriorityService::class); //cambio de PriorityService para demostrar el ISP
+
+        // Obtener la clase de servicio de Priority desde el archivo .env
+        $priorityService = env('TASK_PRIORITY_SERVICE', AriPriorityService::class);
+
+        // Vincular la interfaz de TaskPriorityInterface con el servicio definido en .env
+        $this->app->bind(TaskPriorityInterface::class, function ($app) use ($priorityService) {
+            return new $priorityService();
+        });
     }
 
     /**
