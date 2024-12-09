@@ -1,6 +1,6 @@
 # Documentación del Proyecto
 
-Para más información sobre la funcionalidad del proyecto, consulta el siguiente documento:
+Para más información sobre la funcionalidad del proyecto, consulta el siguiente documento en la carpeta docs del repositorio:
 
 [Principios DIP y ISP - Gestión de Tareas](docs/Principios%20DIP%20y%20ISP%20-%20Gestión%20de%20Tareas.docx)
 
