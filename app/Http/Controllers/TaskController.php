@@ -20,8 +20,9 @@ class TaskController extends Controller
     }
 
     public function index()
-    {
-        $tasks = Task::all();
+    { 
+        $tasks = Task::orderBy('created_at', 'desc')->get();
+    
         return view('tasks.index', compact('tasks'));
     }
 
@@ -66,4 +67,12 @@ class TaskController extends Controller
 
         return redirect()->route('tasks.index')->with('success', 'Task updated successfully.');
     }
+
+    public function destroy(Task $task)
+    {
+        $this->taskManager->deleteTask($task->id);
+
+        return redirect()->route('tasks.index')->with('success', 'Task deleted successfully.');
+    }
+
 }
