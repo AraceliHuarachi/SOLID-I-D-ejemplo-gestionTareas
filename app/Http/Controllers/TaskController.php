@@ -60,7 +60,7 @@ class TaskController extends Controller
     {
         $validated = $request->validated();
 
-        $task->update($validated);
+        $task = $this->taskManager->updateTask($task->id, $validated);
 
         $this->taskPriority->autoAssignPriority($task);
 
