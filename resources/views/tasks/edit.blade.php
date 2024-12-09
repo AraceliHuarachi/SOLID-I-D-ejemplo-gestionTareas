@@ -25,15 +25,6 @@
         </div>
 
         <div>
-            <label for="priority">Priority:</label>
-            <select name="priority" id="priority" required>
-                <option value="low" {{ $task->priority == 'low' ? 'selected' : '' }}>Low</option>
-                <option value="medium" {{ $task->priority == 'medium' ? 'selected' : '' }}>Medium</option>
-                <option value="high" {{ $task->priority == 'high' ? 'selected' : '' }}>High</option>
-            </select>
-        </div>
-
-        <div>
             <label for="status">Status:</label>
             <select name="status" id="status" required>
                 <option value="pending" {{ $task->status == 'pending' ? 'selected' : '' }}>Pending</option>

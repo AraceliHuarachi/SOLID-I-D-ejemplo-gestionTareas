@@ -25,11 +25,6 @@
             <input type="date" name="deadline" id="deadline" required>
         </div>
         <div>
-            <label for="priority">Priority:</label>
-            <input type="text" name="priority" id="priority"
-                value="{{ old('priority', session('assignedPriority', 'Assigned Automatically')) }}" disabled>
-        </div>
-        <div>
             <label for="status">Status:</label>
             <select name="status" id="status" required>
                 <option value="pending">Pending</option>
@@ -39,6 +34,8 @@
         </div>
         <button type="submit">Create Task</button>
     </form>
+
+    
 
     {{-- Botón para regresar --}}
     <a href="{{ route('tasks.index') }}">Back to Task List</a>
