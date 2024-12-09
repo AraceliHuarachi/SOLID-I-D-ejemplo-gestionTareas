@@ -13,7 +13,13 @@ class Task extends Model
     protected $fillable = [
         'name',
         'description',
+        'deadline',
         'priority',
         'status',
+    ];
+    protected $dates = ['deadline'];
+
+    protected $casts = [
+        'deadline' => 'datetime',
     ];
 }
