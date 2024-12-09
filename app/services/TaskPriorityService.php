@@ -22,11 +22,9 @@ class TaskPriorityService implements TaskPriorityInterface
 
         if ($deadline && $deadline->diffInDays($currentDate) <= 3) {
             $this->setPriority($task, 'high');
-        }
-        if ($deadline && $deadline->diffInDays($currentDate) <= 7) {
+        } elseif ($deadline && $deadline->diffInDays($currentDate) <= 7) {
             $this->setPriority($task, 'medium');
-        }
-        if ($deadline && $deadline->diffInDays($currentDate) > 7) {
+        } else {
             $this->setPriority($task, 'low');
         }
 
