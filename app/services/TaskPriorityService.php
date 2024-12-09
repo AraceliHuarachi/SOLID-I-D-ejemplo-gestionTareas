@@ -21,11 +21,19 @@ class TaskPriorityService implements TaskPriorityInterface
 
         $diffInDays = $currentDate->diffInDays($deadline);
 
-        if ($diffInDays <= 3) {
+        // @todo . Eliminar numeros sin definicion (sin sentido)  y agregar comentarios.
+
+
+        //Definicion del rango de dias para los tipos de prioridades:
+        $daysHigh = 7; //una semana o menos para entregar
+        $daysMedium = 30; // un mes o menos para entregar
+        $daysLow = 90; // Tres meses o menos para entregar
+
+        if ($diffInDays <= $daysHigh) {
             $this->setPriority($task, 'high');
-        } elseif ($diffInDays > 3 && $diffInDays <= 15) {
+        } elseif ($diffInDays <= $daysMedium) {
             $this->setPriority($task, 'medium');
-        } else {
+        } elseif ($diffInDays <= $daysLow) {
             $this->setPriority($task, 'low');
         }
         return $task;
