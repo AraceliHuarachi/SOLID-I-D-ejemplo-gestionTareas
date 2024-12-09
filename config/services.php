@@ -35,4 +35,6 @@ return [
         ],
     ],
 
+    // Agregar configuración personalizada para la prioridad de tareas
+    'task_priority_service' => env('TASK_PRIORITY_SERVICE', 'AriPriorityService'), // Valor predeterminado si no se define en .env
 ];
