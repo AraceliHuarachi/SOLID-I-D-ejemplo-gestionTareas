@@ -7,7 +7,7 @@ use App\Models\Task;
 
 class AriPriorityService implements TaskPriorityInterface
 {
-    //Asignacion manual de prioridad a una tarea.
+    // Manual priority assignment for a task.
     public function setPriority(Task $task, string $priority): Task
     {
         $task->priority = $priority;
@@ -15,25 +15,25 @@ class AriPriorityService implements TaskPriorityInterface
         return $task;
     }
 
-    //Asignacion automatica de prioridad a una tarea,
+    // Automatic priority assignment for a task.
     public function autoAssignPriority(Task $task): Task
     {
         $currentDate = now()->startOfDay();
         $deadline = \Carbon\Carbon::parse($task->deadline)->startOfDay();
 
-        // calculo de la diferencia de dias entre la fecha de creacion de la tarea y la fecha limite.
+        // Calculate the difference in days between the task's creation date and the deadline.
         $diffInDays = $currentDate->diffInDays($deadline);
 
-        //Definicion del rango de dias para los tipos de prioridades:
-        $daysUrgent = 2; //dos dias o menos para entregar
-        $daysHight = 7; //una semana o menos para entregar
-        $daysMedium = 30; // un mes o menos para entregar
-        $daysLow = 90; // Tres meses o menos para entregar
-        $daysVeryLow = 365; //Un año o menos para entregar 
+        // Define the range of days for priority levels:
+        $daysUrgent = 2; // Two days or less to deliver
+        $daysHigh = 7; // One week or less to deliver
+        $daysMedium = 30; // One month or less to deliver
+        $daysLow = 90; // Three months or less to deliver
+        $daysVeryLow = 365; // One year or less to deliver 
 
         if ($diffInDays <= $daysUrgent) {
             $this->setPriority($task, 'urgent');
-        } elseif ($diffInDays <= $daysHight) {
+        } elseif ($diffInDays <= $daysHigh) {
             $this->setPriority($task, 'high');
         } elseif ($diffInDays <= $daysMedium) {
             $this->setPriority($task, 'medium');
@@ -42,7 +42,6 @@ class AriPriorityService implements TaskPriorityInterface
         } elseif ($diffInDays <= $daysVeryLow) {
             $this->setPriority($task, 'veryLow');
         }
-
 
         return $task;
     }
